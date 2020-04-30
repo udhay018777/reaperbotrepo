@@ -221,11 +221,11 @@ def set_custom_welcome(chat_id,
         if custom_welcome or custom_content:
             welcome_settings.custom_content = custom_content
             welcome_settings.custom_welcome = custom_welcome
-            welcome_settings.welcome_type = welcome_type.value
+            welcome_settings.welcome_type = welcome_type.value() 
 
         else:
             welcome_settings.custom_welcome = DEFAULT_WELCOME
-            welcome_settings.welcome_type = Types.TEXT.value
+            welcome_settings.welcome_type = Types.TEXT.value() 
 
         SESSION.add(welcome_settings)
 
