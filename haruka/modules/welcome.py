@@ -85,7 +85,7 @@ def send(update, message, keyboard, backup_message):
                 msg = update.effective_message.reply_text(markdown_parser(backup_message +
                                                                       "\nNote: An error occured when sending the "
                                                                       "custom message. Please update."),
-                                                      reply_to_message_id=reply,
+                                                      reply_to_message_id=reply, 
                                                       parse_mode=ParseMode.MARKDOWN)
             except BadRequest:
                 return ""
@@ -113,7 +113,7 @@ def new_member(bot: Bot, update: Update):
                     "I have been added to {} with ID: <pre>{}</pre>".format(chat.title, chat.id),
                     parse_mode=ParseMode.HTML
                 )
-                bot.send_message(chat.id, "Thanks for adding me into your group! If you face any errors report at @reaperbot_official !")
+                bot.send_message(chat.id, "Thanks for adding me into your group! Don't forgot to checkout our news channel!")
 
             else:
                 # If welcome message is media, send with appropriate function
@@ -301,7 +301,7 @@ def left_member(bot: Bot, update: Update):
 
             # Give the owner a special goodbye
             if left_mem.id == OWNER_ID:
-                update.effective_message.reply_text("Well, My mater have left, The party now ended! You can ivite him again he is a kind person and will surely join")
+                update.effective_message.reply_text("Well, My mater have left, The party now ended!")
                 return
 
             # if media goodbye, use appropriate function for it
@@ -540,7 +540,7 @@ def welcome(bot: Bot, update: Update, args: List[str]):
 
         elif args[0].lower() in ("off", "no"):
             sql.set_welc_preference(str(chat.id), False)
-            update.effective_message.reply_text("I will not welcome anyone from now :V")
+            update.effective_message.reply_text("I'm sulking, Not saying hello anymore :V")
 
         else:
             # idek what you're writing, say yes or no
@@ -764,7 +764,7 @@ __help__ = """
 Give your members a warm welcome with the greetings module! Or a sad goodbye... Depends!
 
 Available commands are:
- - /welcome <on/off/yes/no>: enables/disables welcome messages. If no option is given, returns the current welcome message and welcome settings.
+ - /welcome <on/off/yes/no>: enables/disables welcome messages. If no option is given, returns the current welcome message and welcome settings. 
  - /goodbye <on/off/yes/no>: enables/disables goodbye messages. If no option is given, returns  the current goodbye message and goodbye settings.
  - /setwelcome <message>: sets your new welcome message! Markdown and buttons are supported, as well as fillings.
  - /resetwelcome: resets your welcome message to default; deleting any changes you've made.
