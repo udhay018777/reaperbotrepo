@@ -8,7 +8,6 @@ from telegram.ext import CommandHandler, run_async
 from telegram.utils.helpers import mention_html
 
 from haruka import dispatcher, WHITELIST_USERS, SUPPORT_USERS, SUDO_USERS, OWNER_ID
-from haruka.modules.helper_funcs.chat_status import sudo_plus
 from haruka.modules.helper_funcs.extraction import extract_user
 from haruka.modules.log_channel import gloggable
 
