@@ -13,56 +13,6 @@ from haruka.modules.helper_funcs.chat_status import is_user_admin
 from haruka.modules.helper_funcs.extraction import extract_user
 
 
-@run_async
-def runs(bot: Bot, update: Update):
-    update.effective_message.reply_text(random.choice(fun_strings.RUN_STRINGS))
-
-
-@run_async
-def slap(bot: Bot, update: Update, args: List[str]):
-    message = update.effective_message
-    chat = update.effective_chat
-
-    reply_text = message.reply_to_message.reply_text if message.reply_to_message else message.reply_text
-
-    curr_user = html.escape(message.from_user.first_name)
-    user_id = extract_user(message, args)
-
-    if user_id == bot.id:
-        temp = random.choice(fun_strings.SLAP_SAITAMA_TEMPLATES)
-
-        if isinstance(temp, list):
-            if temp[2] == "tmute":
-                if is_user_admin(chat, message.from_user.id):
-                    reply_text(temp[1])
-                    return
-
-                mutetime = int(time.time() + 60)
-                bot.restrict_chat_member(chat.id, message.from_user.id, until_date=mutetime, can_send_messages=False)
-            reply_text(temp[0])
-        else:
-            reply_text(temp)
-        return
-
-    if user_id:
-
-        slapped_user = bot.get_chat(user_id)
-        user1 = curr_user
-        user2 = html.escape(slapped_user.first_name)
-
-    else:
-        user1 = bot.first_name
-        user2 = curr_user
-
-    temp = random.choice(fun_strings.SLAP_TEMPLATES)
-    item = random.choice(fun_strings.ITEMS)
-    hit = random.choice(fun_strings.HIT)
-    throw = random.choice(fun_strings.THROW)
-
-    reply = temp.format(user1=user1, user2=user2, item=item, hits=hit, throws=throw)
-
-    reply_text(reply, parse_mode=ParseMode.HTML)
-
 
 @run_async
 def roll(bot: Bot, update: Update):
