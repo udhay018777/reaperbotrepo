@@ -3,7 +3,7 @@ from typing import List
 from telegram import Update, Bot
 from telegram.ext import run_async
 
-from tg_bot import dispatcher
+from haruka import dispatcher
 from haruka.modules.disable import DisableAbleCommandHandler
 
 
