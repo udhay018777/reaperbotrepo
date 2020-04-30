@@ -107,7 +107,6 @@ SUDO_USERS.add(680915808) #Nitin's id
 
 updater = tg.Updater(TOKEN, workers=WORKERS)
 dispatcher = updater.dispatcher
-StartTime = time.time()
 
 SUDO_USERS = list(SUDO_USERS)
 WHITELIST_USERS = list(WHITELIST_USERS)
