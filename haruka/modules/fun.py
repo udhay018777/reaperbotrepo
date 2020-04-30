@@ -82,7 +82,7 @@ __help__ = """
  - /rlg : Join ears,nose,mouth and create an emo ;-;
 """
 
-RUN_HANDLER = DisableAbleCommandHandler("runs", runs)
+RUN_HANDLER = DisableAbleCommandHandler("run", run)
 SLAP_HANDLER = DisableAbleCommandHandler("slap", slap, pass_args=True)
 ROLL_HANDLER = DisableAbleCommandHandler("roll", roll)
 TOSS_HANDLER = DisableAbleCommandHandler("toss", toss)
