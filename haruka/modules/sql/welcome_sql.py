@@ -205,7 +205,11 @@ def set_gdbye_preference(chat_id, should_goodbye):
         SESSION.commit()
 
 
-def set_custom_welcome(chat_id, custom_welcome, welcome_type, buttons=None):
+def set_custom_welcome(chat_id,
+                       custom_content,
+                       custom_welcome,
+                       welcome_type,
+                       buttons=None):
     if buttons is None:
         buttons = []
 
@@ -214,18 +218,20 @@ def set_custom_welcome(chat_id, custom_welcome, welcome_type, buttons=None):
         if not welcome_settings:
             welcome_settings = Welcome(str(chat_id), True)
 
-        if custom_welcome:
+        if custom_welcome or custom_content:
+            welcome_settings.custom_content = custom_content
             welcome_settings.custom_welcome = custom_welcome
-            welcome_settings.welcome_type = welcome_type.value() 
+            welcome_settings.welcome_type = welcome_type.value
 
         else:
-            welcome_settings.custom_welcome = DEFAULT_GOODBYE
+            welcome_settings.custom_welcome = DEFAULT_WELCOME
             welcome_settings.welcome_type = Types.TEXT.value
 
         SESSION.add(welcome_settings)
 
         with WELC_BTN_LOCK:
-            prev_buttons = SESSION.query(WelcomeButtons).filter(WelcomeButtons.chat_id == str(chat_id)).all()
+            prev_buttons = SESSION.query(WelcomeButtons).filter(
+                WelcomeButtons.chat_id == str(chat_id)).all()
             for btn in prev_buttons:
                 SESSION.delete(btn)
 
@@ -234,7 +240,6 @@ def set_custom_welcome(chat_id, custom_welcome, welcome_type, buttons=None):
                 SESSION.add(button)
 
         SESSION.commit()
-
 
 def get_custom_welcome(chat_id):
     welcome_settings = SESSION.query(Welcome).get(str(chat_id))
