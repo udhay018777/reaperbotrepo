@@ -216,7 +216,7 @@ def set_custom_welcome(chat_id, custom_welcome, welcome_type, buttons=None):
 
         if custom_welcome:
             welcome_settings.custom_welcome = custom_welcome
-            welcome_settings.welcome_type = welcome_type.value[]
+            welcome_settings.welcome_type = welcome_type.value() 
 
         else:
             welcome_settings.custom_welcome = DEFAULT_GOODBYE
