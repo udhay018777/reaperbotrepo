@@ -24,7 +24,7 @@ PM_START = """Hello {}, my name is {}!
 
 You know how hard it is sometimes to manage group so here is the solution for you
 
-I'm group manager bot based on HarukaAya. Edited by [GrimReaper](https://t.me/grimreapeer)
+I'm group manager bot based on HarukaAya. Edited by my master [GrimReaper](https://t.me/grimreapeer)
 
 Join official support group of this bot :
 [Support Group](https://t.me/reaperbot_official)
