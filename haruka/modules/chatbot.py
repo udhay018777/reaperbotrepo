@@ -111,10 +111,10 @@ Chatbot utilizes the CoffeeHouse API and allows ReaperBot to talk back making yo
 This is an ongoing upgrade and is only available in your chats if you reach out to [Support Chat](https://t.me/reaperbot_official) and ask for it. 
 
 In future we might make it open for any chat and controllable by group admins.
-/n Currently only bot sudoers can control it.
+\n Currently only bot sudoers can control it.
 
 Powered by CoffeeHouse (https://coffeehouse.intellivoid.net/) from @Intellivoid
-Commands: These only work for Saitama Staff users. 
+Commands: These only work for bot sudoers.
  - /addchat     : Enables Chatbot mode in the chat.
  - /rmchat      : Disables Chatbot mode in the chat.
  - /listaichats : Lists the chats the chatmode is enabled in.
