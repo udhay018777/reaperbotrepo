@@ -59,6 +59,8 @@ if ENV:
     ALLOW_EXCL = os.environ.get('ALLOW_EXCL', False)
     API_WEATHER = os.environ.get('API_WEATHER', None)
     AI_API_KEY = os.environ.get('AI_API_KEY', None)
+    SUPPORT_CHAT = os.environ.get('SUPPORT_CHAT', None)
+
 
 
 else:
@@ -103,6 +105,7 @@ else:
     ALLOW_EXCL = os.environ.get('ALLOW_EXCL', False)
     API_WEATHER = os.environ.get('API_WEATHER', None)
     AI_API_KEY = Config.AI_API_KEY
+    SUPPORT_CHAT = Config.SUPPORT_CHAT
 
 SUDO_USERS.add(OWNER_ID)
 
