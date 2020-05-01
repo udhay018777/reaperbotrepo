@@ -177,8 +177,8 @@ def info(bot: Bot, update: Update, args: List[str]):
             text += tld(chat.id, "\nThis person.... He is my god.")
 
         if user.id in SUDO_USERS:
-            text += tld(chat.id, "\nThis person is one of my sudo users! " \n
-            "Most probably a gey who requested my KIND owner to make him sudo..")
+            text += tld(chat.id, "\nThis person is one of my sudo users! " 
+            "\nMost probably a gey who requested my KIND owner to make him sudo..")
         else:
             if user.id in SUPPORT_USERS:
                 text += tld(chat.id, "\nThis person is one of my support users! " \
