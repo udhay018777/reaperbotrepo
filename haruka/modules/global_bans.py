@@ -203,7 +203,6 @@ def gban(bot: Bot, update: Update, args: List[str]):
 
 
 @run_async
-@support_plus
 def ungban(bot: Bot, update: Update, args: List[str]):
     message = update.effective_message
     user = update.effective_user
@@ -300,7 +299,6 @@ def ungban(bot: Bot, update: Update, args: List[str]):
 
 
 @run_async
-@support_plus
 def gbanlist(bot: Bot, update: Update):
     banned_users = sql.get_gban_list()
 
