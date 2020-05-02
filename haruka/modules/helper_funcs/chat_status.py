@@ -7,7 +7,7 @@ from haruka import DEL_CMDS, SUDO_USERS, WHITELIST_USERS
 import haruka.modules.sql.admin_sql as admin_sql
 from haruka.modules.translations.strings import tld
 
-import haruka.modules.sql.antispam_sql as sql
+import haruka.modules.sql.global_bans_sql as sql
 
 def can_delete(chat: Chat, bot_id: int) -> bool:
     return chat.get_member(bot_id).can_delete_messages
