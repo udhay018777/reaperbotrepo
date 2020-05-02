@@ -27,7 +27,7 @@ if ENV:
 
     MESSAGE_DUMP = os.environ.get('MESSAGE_DUMP', None)
     OWNER_USERNAME = os.environ.get("OWNER_USERNAME", None)
-
+    STRICT_GBAN = os.environ.get('STRICT_GBAN', None)
     try:
         SUDO_USERS = set(int(x) for x in os.environ.get("SUDO_USERS", "").split())
     except ValueError:
