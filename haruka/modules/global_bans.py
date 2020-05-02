@@ -133,16 +133,7 @@ def gban(bot: Bot, update: Update, args: List[str]):
         else:
             log_message += f"\n<b>Reason:</b> {reason}"
 
-    if GBAN_LOGS:
-        try:
-            log = bot.send_message(GBAN_LOGS, log_message, parse_mode=ParseMode.HTML)
-        except BadRequest as excp:
-            log = bot.send_message(GBAN_LOGS,
-                                   log_message + "\n\nFormatting has been disabled due to an unexpected error.")
-
-    else:
-        send_to_list(bot, SUDO_USERS + SUPPORT_USERS, log_message, html=True)
-
+ 
     sql.gban_user(user_id, user_chat.username or user_chat.first_name, reason)
 
     chats = get_all_chats()
