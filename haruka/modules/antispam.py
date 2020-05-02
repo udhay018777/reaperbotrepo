@@ -69,11 +69,6 @@ def gban(bot: Bot, update: Update, args: List[str]):
         message.reply_text("-_- So funny, lets gban myself why don't I? Nice try. Earth That is my price!")
         return
 
-    try:
-        user_chat = bot.get_chat(user_id)
-    except BadRequest as excp:
-        message.reply_text(excp.message)
-        return
 
     if user_chat.type != 'private':
         message.reply_text("That's not a user!")
