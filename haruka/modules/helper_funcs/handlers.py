@@ -1,6 +1,6 @@
 import telegram.ext as tg
 from telegram import Update
-import haruka.modules.sql.global_bans_sql as sql
+import haruka.modules.sql.antispam_sql as sql
 
 CMD_STARTERS = ('/', '!')
 
