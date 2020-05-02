@@ -59,10 +59,7 @@ def gban(bot: Bot, update: Update, args: List[str]):
         message.reply_text("You don't seem to be referring to a user or the ID specified is incorrect..")
         return
 
-    if int(user_id) in DEV_USERS:
-        message.reply_text("That user is part of the Association\nI can't act against our own.")
-        return
-
+ 
     if int(user_id) in SUDO_USERS:
         message.reply_text("I spy, with my little eye... a disaster! Why are you guys turning on each other?")
         return
@@ -71,9 +68,7 @@ def gban(bot: Bot, update: Update, args: List[str]):
         message.reply_text("OOOH someone's trying to gban a Demon Disaster! *grabs popcorn*")
         return
 
-    if int(user_id) in TIGER_USERS:
-        message.reply_text("That's a Tiger! They cannot be banned!")
-        return
+   
 
     if int(user_id) in WHITELIST_USERS:
         message.reply_text("That's a Wolf! They cannot be banned!")
