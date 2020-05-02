@@ -47,7 +47,6 @@ UNGBAN_ERRORS = {
 
 
 @run_async
-@support_plus
 def gban(bot: Bot, update: Update, args: List[str]):
     message = update.effective_message
     user = update.effective_user
