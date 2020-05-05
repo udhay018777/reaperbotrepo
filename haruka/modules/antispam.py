@@ -140,6 +140,14 @@ def gban(bot: Bot, update: Update, args: List[str]):
                    html=True)
     text13 = f"Justice has been done with {ok123} 😉 'Peace'."
     update.effective_message.reply_text(text13, parse_mode=ParseMode.HTML)
+    try:
+        bot.send_message(user_id,
+                         "You have been globally banned from all groups where I have administrative permissions."
+                         f"If you think that this was a mistake, you may appeal your ban here: {SUPPORT_CHAT}",
+                         parse_mode=ParseMode.HTML)
+    except:
+        pass  # bot probably blocked by user
+
 
 
 @run_async
