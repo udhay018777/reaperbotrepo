@@ -130,7 +130,7 @@ def lock(bot: Bot, update: Update, args: List[str]) -> str:
                                                           mention_html(user.id, user.first_name), args[0])
 
             else:
-                message.reply_text(tld(chat.id, "What are you trying to lock...? Try /locktypes for the list of lockables"))
+                message.reply_text(tld(chat.id, "Mention a valid locktype from /locktypes else I will seal your mouth!"))
 
     else:
         message.reply_text(tld(chat.id, "Make sure I'm a group administrator and have permission to delete messages, then try again."))
