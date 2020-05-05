@@ -108,7 +108,7 @@ def lock(bot: Bot, update: Update, args: List[str]) -> str:
         if len(args) >= 1:
             if args[0] in LOCK_TYPES:
                 sql.update_lock(chat.id, args[0], locked=True)
-                message.reply_text(tld(chat.id, "Locked {} messages for all non-admins. Most probably because its rest time").format(args[0]))
+                message.reply_text(tld(chat.id, "Locked {} messages for all non-admins. Because its my choice.").format(args[0]))
 
                 return "<b>{}:</b>" \
                        "\n#LOCK" \
