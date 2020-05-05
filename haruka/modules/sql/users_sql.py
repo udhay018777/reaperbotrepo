@@ -145,6 +145,14 @@ def num_chats():
         SESSION.close()
 
 
+def get_user_com_chats(user_id):
+    try:
+        chat_members = SESSION.query(ChatMembers).filter(ChatMembers.user == int(user_id)).all()
+        return [i.chat for i in chat_members]
+    finally:
+        SESSION.close()
+
+
 def num_users():
     try:
         return SESSION.query(Users).count()
