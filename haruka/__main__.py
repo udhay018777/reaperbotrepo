@@ -25,6 +25,7 @@ PM_START = """Hello {}, my name is {}!
 You know how hard it is sometimes to manage group so here is the solution for you
 
 I'm group manager bot based on HarukaAya. Edited by my master [GrimReaper](https://t.me/grimreapeer)
+\nTo add me to your group click ["HERE"](t.me/thereapeer_bot?startgroup=botstart)
 
 Join official support group of this bot :
 [Support Group](https://t.me/reaperbot_official)
@@ -133,7 +134,7 @@ def start(bot: Bot, update: Update, args: List[str]):
         else:
             send_start(bot, update)
     else:
-        update.effective_message.reply_text("I'm Busy! BSDK Do Not Disturb Me. FU*K YOU 3000")
+        update.effective_message.reply_text("I'm Busy! BSDK Do Not Disturb Me. FU*K YOU 3000!")
 
 def send_start(bot, update):
     #Try to remove old message
