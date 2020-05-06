@@ -86,7 +86,7 @@ def do(func, bot, update):
     env = namespace_of(update.message.chat_id, update, bot)
 
     os.chdir(os.getcwd())
-    with open('%s/alluka/modules/helper_funcs/temp.txt' % os.getcwd(), 'w') as temp:
+    with open('%s/haruka/modules/helper_funcs/temp.txt' % os.getcwd(), 'w') as temp:
         temp.write(body)
 
     stdout = io.StringIO()
