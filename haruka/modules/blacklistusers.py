@@ -3,9 +3,9 @@
 from telegram import Message, User, Bot, Update, ParseMode
 from telegram.ext import CommandHandler, run_async, Filters
 
-from tg_bot import dispatcher, OWNER_ID
+from haruka import dispatcher, OWNER_ID
 
-import tg_bot.modules.sql.blacklistusers_sql as sql
+import haruka.modules.sql.blacklistusers_sql as sql
 
 
 @run_async
