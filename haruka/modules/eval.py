@@ -10,7 +10,7 @@ from telegram.error import TimedOut, NetworkError
 
 from haruka import dispatcher, LOGGER
 from haruka.modules.disable import DisableAbleCommandHandler
-from haruka.modules.helper_funcs.chat_status import bot_admin, can_promote, user_admin, can_pin, dev_plus
+from haruka.modules.helper_funcs.chat_status import bot_admin, can_promote, user_admin, can_pin
 
 from requests import get
 
