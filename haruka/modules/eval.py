@@ -1,17 +1,16 @@
 import logging
 import sys
+
 from contextlib import contextmanager, redirect_stdout
-from telegram import Update, Bot, ParseMode
-from telegram.ext import run_async
 
-from telegram.ext import Updater, CommandHandler
+from telegram import Bot, Update, ParseMode
+from telegram.ext import Updater, CommandHandler, run_async
+
 from telegram.error import TimedOut, NetworkError
-from telegram import ParseMode
 
-from haruka.modules.disable import DisableAbleCommandHandler
-from telegram.ext.dispatcher import run_async
-from haruka.modules.helper_funcs.chat_status import bot_admin, can_promote, user_admin, can_pin, dev_user
 from haruka import dispatcher, LOGGER
+from haruka.modules.disable import DisableAbleCommandHandler
+from haruka.modules.helper_funcs.chat_status import bot_admin, can_promote, user_admin, can_pin, dev_plus
 
 from requests import get
 
@@ -61,22 +60,14 @@ def log_input(update):
 
 def send(msg, bot, update):
     LOGGER.info("OUT: '{}'".format(msg))
-    if len(msg) < 4000:
-        bot.send_message(chat_id=update.effective_chat.id, text="`{}`".format(msg), parse_mode=ParseMode.MARKDOWN)
-    else:
-        with open("output.txt", 'w') as o:
-            o.write(f"{msg}\n\n\nUwU OwO OmO")
-        with open("output.txt", 'rb') as o:
-            bot.send_document(document=o, filename=o.name,
-                                          reply_to_message_id=update.message.message_id,
-                                          chat_id=update.effective_chat.id)
+    bot.send_message(chat_id=update.effective_chat.id, text="`{}`".format(msg), parse_mode=ParseMode.MARKDOWN)
 
-@dev_user
+
 @run_async
 def evaluate(bot, update):
     send(do(eval, bot, update), bot, update)
 
-@dev_user
+
 @run_async
 def execute(bot, update):
     send(do(exec, bot, update), bot, update)
@@ -88,13 +79,14 @@ def cleanup_code(code):
 
 
 def do(func, bot, update):
+
     log_input(update)
     content = update.message.text.split(' ', 1)[-1]
     body = cleanup_code(content)
     env = namespace_of(update.message.chat_id, update, bot)
 
     os.chdir(os.getcwd())
-    with open('%s/tg_bot/modules/helper_funcs/temp.txt' % os.getcwd(), 'w') as temp:
+    with open('%s/alluka/modules/helper_funcs/temp.txt' % os.getcwd(), 'w') as temp:
         temp.write(body)
 
     stdout = io.StringIO()
@@ -128,10 +120,11 @@ def do(func, bot, update):
         else:
             result = '{}{}'.format(value, func_return)
         if result:
+            if len(str(result)) > 2000:
+                result = 'Output is too long'
             return result
-               
 
-@dev_user
+
 @run_async
 def clear(bot, update):
     log_input(update)
@@ -141,21 +134,13 @@ def clear(bot, update):
     send("Cleared locals.", bot, update)
 
 
-def error_callback(bot, update, error):
-    try:
-        raise error
-    except (TimedOut, NetworkError):
-        log.debug(error, exc_info=True)
-    except:
-        log.info(error, exc_info=True)
+eval_handler = CommandHandler(('e', 'ev', 'eva', 'eval'), evaluate)
+exec_handler = CommandHandler(('x', 'ex', 'exe', 'exec', 'py'), execute)
+clear_handler = CommandHandler('clearlocals', clear)
 
-__mod_name__ = "Eval"
+dispatcher.add_handler(eval_handler)
+dispatcher.add_handler(exec_handler)
+dispatcher.add_handler(clear_handler)
 
-eval_handle = CommandHandler(('e', 'ev', 'eva', 'eval'), evaluate)
-exec_handle = CommandHandler(('x', 'ex', 'exe', 'exec', 'py'), execute)
-clear_handle = CommandHandler('clearlocals', clear)
-
-dispatcher.add_handler(eval_handle)
-dispatcher.add_handler(exec_handle)
-dispatcher.add_handler(clear_handle)
+__mod_name__ = "Eval Module"
 
