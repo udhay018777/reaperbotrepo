@@ -96,7 +96,7 @@ def gban(bot: Bot, update: Update, args: List[str]):
     ok123 = mention_html(user_chat.id, user_chat.first_name)
 
 
-    text12 = f"*Summoning all infinity stones* The end is near. ☠️ {ok123}."
+    text12 = f"**Summoning all infinity stones** The end is near. ☠️ {ok123}."
     update.effective_message.reply_text(text12, parse_mode=ParseMode.HTML)
 
     banner = update.effective_user  # type: Optional[User]
@@ -138,7 +138,7 @@ def gban(bot: Bot, update: Update, args: List[str]):
     send_to_list(bot, SUDO_USERS + SUPPORT_USERS,
                    "{} has been successfully gbanned!".format(mention_html(user_chat.id, user_chat.first_name)),
                    html=True)
-    text13 = f"Justice has been done with {ok123} 😉 'Peace'."
+    text13 = f"Justice has been done with this gey{ok123} 😉 'Peace Out'."
     update.effective_message.reply_text(text13, parse_mode=ParseMode.HTML)
    
 @run_async
@@ -161,7 +161,7 @@ def ungban(bot: Bot, update: Update, args: List[str]):
 
     banner = update.effective_user  # type: Optional[User]
 
-    message.reply_text("I'll give {} a second chance, globally.I do not ask for your trust.I demand only your obedience.".format(user_chat.first_name))
+    message.reply_text("I'll give {} a second chance, globally. Don`t be this much kind.\n Stay firm on your decisions kthnxbye:)".format(user_chat.first_name))
 
     send_to_list(bot, SUDO_USERS + SUPPORT_USERS,
                  "<b>Regression of Global Ban</b>" \
@@ -204,7 +204,7 @@ def ungban(bot: Bot, update: Update, args: List[str]):
                                                                          user_chat.first_name)),
                  html=True)
 
-    message.reply_text("Person has been un-gbanned.The hardest choices require the strongest wills.😐")
+    message.reply_text("Person has been un-gbanned. The hardest choices require the strongest wills.😐")
 
 
 
@@ -216,7 +216,7 @@ def gbanlist(bot: Bot, update: Update):
         update.effective_message.reply_text("There aren't any gbanned users! You're kinder than I expected...")
         return
 
-    banfile = 'Screw these guys.\n'
+    banfile = 'Screw these gays.\n'
     for user in banned_users:
         banfile += "[x] {} - {}\n".format(user["name"], user["user_id"])
         if user["reason"]:
@@ -232,7 +232,7 @@ def check_and_ban(update, user_id, should_message=True):
     if sql.is_user_gbanned(user_id):
         update.effective_chat.kick_member(user_id)
         if should_message:
-            update.effective_message.reply_text("Again, insects, you ask what am I? What I am is angry. What I am is insane with rage!")
+            update.effective_message.reply_text("Oh! SeD nibba, you messed with my sudoers and now they have restricted you globally. ENJOY!")
 
 #GMUTE
 
@@ -282,7 +282,7 @@ def gmute(bot: Bot, update: Update, args: List[str]):
 
         return
 
-    message.reply_text("*Gets duct tape ready* 😉")
+    message.reply_text("*Gets duct tape ready to seal his butthole* 😉")
 
     muter = update.effective_user  # type: Optional[User]
     send_to_list(bot, SUDO_USERS + SUPPORT_USERS,
