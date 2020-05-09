@@ -37,7 +37,12 @@ from haruka.modules.translations.strings import tld
 
 from requests import get
 
-
+@user_is_gbanned
+@run_async
+def runs(bot: Bot, update: Update):
+    chat = update.effective_chat  # type: Optional[Chat]
+    update.effective_message.reply_text(random.choice(tld(chat.id, "RUNS-K")))
+    
 @user_is_gbanned
 @run_async
 def insults(bot: Bot, update: Update):
