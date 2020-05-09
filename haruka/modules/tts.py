@@ -41,9 +41,7 @@ def tts(bot: Bot, update: Update, args):
 
 
 
-__help__ = """
-Coverts your text to voice. For example '/tts Hi', The bot will send a voice message saying Hi.
- - /tts <your text which you want as voice>
-"""         
+__help__ = """Coverts your text to voice. For example '/tts Hi', The bot will send a voice message saying Hi.
+ - /tts <your text which you want as voice>"""         
 
 dispatcher.add_handler(CommandHandler('tts', tts, pass_args=True))
