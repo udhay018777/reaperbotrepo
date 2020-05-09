@@ -23,13 +23,16 @@ def roll(bot: Bot, update: Update):
 def toss(bot: Bot, update: Update):
     update.message.reply_text(random.choice(fun_strings.TOSS))
 
-
+@run_async
+def rape(bot: Bot, update: Update):
+    reply_text = update.effective_message.reply_to_message.reply_text if update.effective_message.reply_to_message else update.effective_message.reply_text
+    reply_text(random.choice(fun_strings.RAPE))
+    
 @run_async
 def abuse(bot: Bot, update: Update):
-    msg = update.effective_message
-    reply_text = msg.reply_to_message.reply_text if msg.reply_to_message else msg.reply_text
+    reply_text = update.effective_message.reply_to_message.reply_text if update.effective_message.reply_to_message else update.effective_message.reply_text
     reply_text(random.choice(fun_strings.ABUSE_STRINGS))
-
+    
 
 @run_async
 def shrug(bot: Bot, update: Update):
@@ -67,7 +70,7 @@ def decide(bot: Bot, update: Update):
 def table(bot: Bot, update: Update):
     reply_text = update.effective_message.reply_to_message.reply_text if update.effective_message.reply_to_message else update.effective_message.reply_text
     reply_text(random.choice(fun_strings.TABLE))
-
+    
 
 __help__ = """
  - /runs: reply a random string from an array of replies.
@@ -89,6 +92,8 @@ BLUETEXT_HANDLER = DisableAbleCommandHandler("bluetext", bluetext)
 RLG_HANDLER = DisableAbleCommandHandler("rlg", rlg)
 DECIDE_HANDLER = DisableAbleCommandHandler("decide", decide)
 TABLE_HANDLER = DisableAbleCommandHandler("table", table)
+RAPE_HANDLER = DisableAbleCommandHandler("rape", rape)
+ABUSE_HANDLER = DisableAbleCommandHandler("abuse", abuse)
 
 dispatcher.add_handler(ROLL_HANDLER)
 dispatcher.add_handler(TOSS_HANDLER)
@@ -97,8 +102,10 @@ dispatcher.add_handler(BLUETEXT_HANDLER)
 dispatcher.add_handler(RLG_HANDLER)
 dispatcher.add_handler(DECIDE_HANDLER)
 dispatcher.add_handler(TABLE_HANDLER)
+dispatcher.add_handler(RAPE_HANDLER)
+dispatcher.add_handler(ABUSE_HANDLER)
 
 __mod_name__ = "Fun"
-__command_list__ = ["runs", "slap", "roll", "toss", "shrug", "bluetext", "rlg", "decide", "table"]
+__command_list__ = ["runs", "slap", "roll", "toss", "shrug", "bluetext", "rlg", "decide", "table","rape","abuse"]
 __handlers__ = [ROLL_HANDLER, TOSS_HANDLER, SHRUG_HANDLER, BLUETEXT_HANDLER, RLG_HANDLER,
-                DECIDE_HANDLER, TABLE_HANDLER]
+                DECIDE_HANDLER, TABLE_HANDLER, RAPE_HANDLER, ABUSE_HANDLER]
