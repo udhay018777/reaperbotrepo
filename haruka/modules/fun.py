@@ -12,7 +12,9 @@ from haruka.modules.disable import DisableAbleCommandHandler
 from haruka.modules.helper_funcs.chat_status import is_user_admin
 from haruka.modules.helper_funcs.extraction import extract_user
 
-
+@run_async
+def ben(bot: Bot, update: Update):
+    update.message.reply_text(random.choice(fun_strings.BEN))
 
 @run_async
 def roll(bot: Bot, update: Update):
@@ -83,6 +85,8 @@ __help__ = """
  - /bluetext : check urself :V
  - /roll : Roll a dice.
  - /rlg : Join ears,nose,mouth and create an emo ;-;
+ - /rape Rape anybody
+ - /ben Try it
 """
 
 ROLL_HANDLER = DisableAbleCommandHandler("roll", roll)
@@ -94,6 +98,8 @@ DECIDE_HANDLER = DisableAbleCommandHandler("decide", decide)
 TABLE_HANDLER = DisableAbleCommandHandler("table", table)
 RAPE_HANDLER = DisableAbleCommandHandler("rape", rape)
 ABUSE_HANDLER = DisableAbleCommandHandler("abuse", abuse)
+BEN_HANDLER = DisableAbleCommandHandler("ben", ben)
+
 
 dispatcher.add_handler(ROLL_HANDLER)
 dispatcher.add_handler(TOSS_HANDLER)
@@ -104,8 +110,9 @@ dispatcher.add_handler(DECIDE_HANDLER)
 dispatcher.add_handler(TABLE_HANDLER)
 dispatcher.add_handler(RAPE_HANDLER)
 dispatcher.add_handler(ABUSE_HANDLER)
+dispatcher.add_handler(BEN_HANDLER)
 
 __mod_name__ = "Fun"
-__command_list__ = ["runs", "slap", "roll", "toss", "shrug", "bluetext", "rlg", "decide", "table","rape","abuse"]
+__command_list__ = ["runs", "slap", "roll", "toss", "shrug", "bluetext", "rlg", "decide", "table","rape","abuse","ben"]
 __handlers__ = [ROLL_HANDLER, TOSS_HANDLER, SHRUG_HANDLER, BLUETEXT_HANDLER, RLG_HANDLER,
-                DECIDE_HANDLER, TABLE_HANDLER, RAPE_HANDLER, ABUSE_HANDLER]
+                DECIDE_HANDLER, TABLE_HANDLER, RAPE_HANDLER, ABUSE_HANDLER, BEN_HANDLER]
