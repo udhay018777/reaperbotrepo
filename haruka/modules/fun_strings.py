@@ -221,11 +221,11 @@ RAPE = (
 )
 
 BEN = (
-   "Wo BAN hota hai gandu"
-    "Me busy. Ben yourself!"
-    "Gwar! BKL ban hota wo. Faltu gand mat marwa idr!"
-    "Banned this gay successfully"
-    "Bina condom ke chod dalunga, Command sahi se daal!"
-    "You are a sarkari school ki anpad Randi!"
+   "Wo BAN hota hai gandu",
+    "Me busy. Ben yourself!",
+    "Gwar! BKL ban hota wo. Faltu gand mat marwa idr!",
+    "Banned this gay successfully",
+    "Bina condom ke chod dalunga, Command sahi se daal!",
+    "You are a sarkari school ki anpad Randi!",
     "Ben tereko chodkr gya tha kya jo uska nam likhra! RAND!"
 )
