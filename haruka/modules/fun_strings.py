@@ -227,5 +227,5 @@ BEN = (
     "Banned this gay successfully",
     "Bina condom ke chod dalunga, Command sahi se daal!",
     "You are a sarkari school ki anpad Randi!",
-    "Ben tereko chodkr gya tha kya jo uska nam likhra! RAND!"
+    "Ben tereko chodkr gya tha kya jo uska nam likhra! RAND!",
 )
