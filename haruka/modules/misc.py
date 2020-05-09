@@ -39,6 +39,49 @@ from requests import get
 
 @user_is_gbanned
 @run_async
+def slap(bot: Bot, update: Update, args: List[str]):
+    chat = update.effective_chat  # type: Optional[Chat]
+    msg = update.effective_message  # type: Optional[Message]
+
+    # reply to correct message
+    reply_text = msg.reply_to_message.reply_text if msg.reply_to_message else msg.reply_text
+
+    # get user who sent message
+    if msg.from_user.username:
+        curr_user = "@" + escape_markdown(msg.from_user.username)
+    else:
+        curr_user = "[{}](tg://user?id={})".format(msg.from_user.first_name, msg.from_user.id)
+
+    user_id = extract_user(update.effective_message, args)
+    if user_id:
+        slapped_user = bot.get_chat(user_id)
+        user1 = curr_user
+        if slapped_user.username:
+            user2 = "@" + escape_markdown(slapped_user.username)
+        else:
+            user2 = "[{}](tg://user?id={})".format(slapped_user.first_name,
+                                                   slapped_user.id)
+
+    # if no target found, bot targets the sender
+    else:
+        user1 = "[{}](tg://user?id={})".format(bot.first_name, bot.id)
+        user2 = curr_user
+
+    temp = random.choice(tld(chat.id, "SLAP_TEMPLATES-K"))
+    item = random.choice(tld(chat.id, "ITEMS-K"))
+    hit = random.choice(tld(chat.id, "HIT-K"))
+    throw = random.choice(tld(chat.id, "THROW-K"))
+    itemp = random.choice(tld(chat.id, "ITEMP-K"))
+    itemr = random.choice(tld(chat.id, "ITEMR-K"))
+
+    repl = temp.format(user1=user1, user2=user2, item=item, hits=hit, throws=throw, itemp=itemp, itemr=itemr)
+    #user1=user1, user2=user2, item=item_ru, hits=hit_ru, throws=throw_ru, itemp=itemp_ru, itemr=itemr_ru
+
+    reply_text(repl, parse_mode=ParseMode.MARKDOWN)
+
+
+@user_is_gbanned
+@run_async
 def runs(bot: Bot, update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
     update.effective_message.reply_text(random.choice(tld(chat.id, "RUNS-K")))
