@@ -28,3 +28,4 @@ wikipedia
 bleach
 markdown2
 psutil
+gtts
