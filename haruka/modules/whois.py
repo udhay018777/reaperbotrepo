@@ -19,7 +19,7 @@ from haruka.__main__ import STATS, USER_INFO, TOKEN
 from haruka.modules.disable import DisableAbleCommandHandler, DisableAbleRegexHandler
 from haruka.modules.helper_funcs.extraction import extract_user
 from haruka.modules.helper_funcs.filters import CustomFilters
-import tg_bot.modules.sql.users_sql as sql
+import haruka.modules.sql.users_sql as sql
 
 @run_async
 def whois(bot: Bot, update: Update, args: List[str]):
