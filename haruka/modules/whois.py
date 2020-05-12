@@ -13,14 +13,13 @@ from telegram import Message, Chat, Update, Bot, MessageEntity
 from telegram import ParseMode
 from telegram.ext import CommandHandler, run_async, Filters
 from telegram.utils.helpers import escape_markdown, mention_html
-from tg_bot.modules.helper_funcs.chat_status import user_admin, sudo_plus, is_user_admin
-from tg_bot import dispatcher, OWNER_ID, SUDO_USERS, SUPPORT_USERS, DEV_USERS, WHITELIST_USERS
-from tg_bot.__main__ import STATS, USER_INFO, TOKEN
-from tg_bot.modules.disable import DisableAbleCommandHandler, DisableAbleRegexHandler
-from tg_bot.modules.helper_funcs.extraction import extract_user
-from tg_bot.modules.helper_funcs.filters import CustomFilters
+from tg_bot.modules.helper_funcs.chat_status import user_admin, is_user_admin
+from tg_bot import dispatcher, OWNER_ID, SUDO_USERS, SUPPORT_USERS, WHITELIST_USERS
+from haruka.__main__ import STATS, USER_INFO, TOKEN
+from haruka.modules.disable import DisableAbleCommandHandler, DisableAbleRegexHandler
+from haruka.modules.helper_funcs.extraction import extract_user
+from haruka.modules.helper_funcs.filters import CustomFilters
 import tg_bot.modules.sql.users_sql as sql
-import tg_bot.modules.helper_funcs.cas_api as cas
 
 @run_async
 def whois(bot: Bot, update: Update, args: List[str]):
@@ -95,9 +94,6 @@ def whois(bot: Bot, update: Update, args: List[str]):
 
 
     text +="\n"
-    text += "\nCAS banned: "
-    result = cas.banchecker(user.id)
-    text += str(result)
     for mod in USER_INFO:
         if mod.__mod_name__ == "WHOIS":
             continue
