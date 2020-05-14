@@ -9,15 +9,13 @@ from telegram.ext import CommandHandler, MessageHandler, Filters
 from telegram.ext.dispatcher import run_async
 from telegram.utils.helpers import mention_html
 
-import haruka.modules.sql.locks_sql as sql
-from haruka import dispatcher, SUDO_USERS, LOGGER
-from haruka.modules.disable import DisableAbleCommandHandler
-from haruka.modules.helper_funcs.chat_status import can_delete, is_user_admin, user_not_admin, user_admin, \
+import tg_bot.modules.sql.locks_sql as sql
+from tg_bot import dispatcher, SUDO_USERS, LOGGER
+from tg_bot.modules.disable import DisableAbleCommandHandler
+from tg_bot.modules.helper_funcs.chat_status import can_delete, is_user_admin, user_not_admin, user_admin, \
     bot_can_delete, is_bot_admin
-from haruka.modules.log_channel import loggable
-from haruka.modules.sql import users_sql
-
-from haruka.modules.translations.strings import tld
+from tg_bot.modules.log_channel import loggable
+from tg_bot.modules.sql import users_sql
 
 LOCK_TYPES = {'sticker': Filters.sticker,
               'audio': Filters.audio,
@@ -37,7 +35,7 @@ LOCK_TYPES = {'sticker': Filters.sticker,
 
 GIF = Filters.animation
 OTHER = Filters.game | Filters.sticker | GIF
-MEDIA = Filters.audio | Filters.document | Filters.video | Filters.voice | Filters.photo
+MEDIA = Filters.audio | Filters.document | Filters.video | Filters.video_note | Filters.voice | Filters.photo
 MESSAGES = Filters.text | Filters.contact | Filters.location | Filters.venue | Filters.command | MEDIA | OTHER
 PREVIEWS = Filters.entity("url")
 
@@ -108,7 +106,7 @@ def lock(bot: Bot, update: Update, args: List[str]) -> str:
         if len(args) >= 1:
             if args[0] in LOCK_TYPES:
                 sql.update_lock(chat.id, args[0], locked=True)
-                message.reply_text(tld(chat.id, "Locked {} messages for all non-admins. Because its my choice.").format(args[0]))
+                message.reply_text("Locked {} messages for all non-admins!".format(args[0]))
 
                 return "<b>{}:</b>" \
                        "\n#LOCK" \
@@ -122,7 +120,7 @@ def lock(bot: Bot, update: Update, args: List[str]) -> str:
                     members = users_sql.get_chat_members(str(chat.id))
                     restr_members(bot, chat.id, members, messages=True, media=True, other=True)
 
-                message.reply_text(tld(chat.id, "Locked {} for all non-admins. Because ITS MY CHOICE!").format(args[0]))
+                message.reply_text("Locked {} for all non-admins!".format(args[0]))
                 return "<b>{}:</b>" \
                        "\n#LOCK" \
                        "\n<b>Admin:</b> {}" \
@@ -130,10 +128,10 @@ def lock(bot: Bot, update: Update, args: List[str]) -> str:
                                                           mention_html(user.id, user.first_name), args[0])
 
             else:
-                message.reply_text(tld(chat.id, "Mention a valid locktype from /locktypes else I will seal your mouth!"))
+                message.reply_text("What are you trying to lock...? Try /locktypes for the list of lockables")
 
     else:
-        message.reply_text(tld(chat.id, "Make sure I'm a group administrator and have permission to delete messages, then try again."))
+        message.reply_text("I'm not an administrator, or haven't got delete rights.")
 
     return ""
 
@@ -149,7 +147,7 @@ def unlock(bot: Bot, update: Update, args: List[str]) -> str:
         if len(args) >= 1:
             if args[0] in LOCK_TYPES:
                 sql.update_lock(chat.id, args[0], locked=False)
-                message.reply_text(tld(chat.id, "Unlocked {} for everyone! ENJOY").format(args[0]))
+                message.reply_text("Unlocked {} for everyone!".format(args[0]))
                 return "<b>{}:</b>" \
                        "\n#UNLOCK" \
                        "\n<b>Admin:</b> {}" \
@@ -175,7 +173,7 @@ def unlock(bot: Bot, update: Update, args: List[str]) -> str:
                 elif args[0] == "all":
                     unrestr_members(bot, chat.id, members, True, True, True, True)
                 """
-                message.reply_text(tld(chat.id, "Unlocked {} for everyone!").format(args[0]))
+                message.reply_text("Unlocked {} for everyone!".format(args[0]))
 
                 return "<b>{}:</b>" \
                        "\n#UNLOCK" \
@@ -183,10 +181,10 @@ def unlock(bot: Bot, update: Update, args: List[str]) -> str:
                        "\nUnlocked <code>{}</code>.".format(html.escape(chat.title),
                                                             mention_html(user.id, user.first_name), args[0])
             else:
-                message.reply_text(tld(chat.id, "What are you trying to unlock...? Try /locktypes for the list of lockables"))
+                message.reply_text("What are you trying to unlock...? Try /locktypes for the list of lockables")
 
         else:
-            bot.sendMessage(chat.id, tld(chat.id, "What are you trying to unlock...?"))
+            bot.sendMessage(chat.id, "What are you trying to unlock...?")
 
     return ""
 
@@ -204,11 +202,12 @@ def del_lockables(bot: Bot, update: Update):
                 for new_mem in new_members:
                     if new_mem.is_bot:
                         if not is_bot_admin(chat, bot.id):
-                            message.reply_text(tld(chat.id, "I see a bot, and I've been told to stop them joining... but I'm not admin! SeD ReAcTs OnLy"))
+                            message.reply_text("I see a bot, and I've been told to stop them joining... "
+                                               "but I'm not admin!")
                             return
 
                         chat.kick_member(new_mem.id)
-                        message.reply_text(tld(chat.id, "Only admins are allowed to add bots to this chat! Get outta here."))
+                        message.reply_text("Only admins are allowed to add bots to this chat! Get outta here.")
             else:
                 try:
                     message.delete()
@@ -238,13 +237,13 @@ def rest_handler(bot: Bot, update: Update):
             break
 
 
-def build_lock_message(chat, chatP, user, chatname):
-    locks = sql.get_locks(chat.id)
-    restr = sql.get_restr(chat.id)
+def build_lock_message(chat_id):
+    locks = sql.get_locks(chat_id)
+    restr = sql.get_restr(chat_id)
     if not (locks or restr):
-        res = tld(chatP.id, "There are no current locks in *{}*.".format(chatname))
+        res = "There are no current locks in this chat."
     else:
-        res = tld(chatP.id, "These are the locks in *{}*:".format(chatname))
+        res = "These are the locks in this chat:"
         if locks:
             res += "\n - sticker = `{}`" \
                    "\n - audio = `{}`" \
@@ -276,10 +275,8 @@ def build_lock_message(chat, chatP, user, chatname):
 @user_admin
 def list_locks(bot: Bot, update: Update):
     chat = update.effective_chat  # type: Optional[Chat]
-    user = update.effective_user  # type: Optional[User]
 
-    chatname = chat.title
-    res = build_lock_message(chat, chat, user, chatname)
+    res = build_lock_message(chat.id)
 
     update.effective_message.reply_text(res, parse_mode=ParseMode.MARKDOWN)
 
@@ -288,36 +285,23 @@ def __migrate__(old_chat_id, new_chat_id):
     sql.migrate_chat(old_chat_id, new_chat_id)
 
 
-def __chat_settings__(bot, update, chat, chatP, user):
-    chatname = tld(chatP.id, "this chat")
-    return build_lock_message(chat, chatP, user, chatname)
-
-
-def __import_data__(chat_id, data):
-    # set chat locks
-    locks = data.get('locks', {})
-    for itemlock in locks:
-        if itemlock in LOCK_TYPES:
-          sql.update_lock(chat_id, itemlock, locked=True)
-        elif itemlock in RESTRICTION_TYPES:
-          sql.update_restriction(chat_id, itemlock, locked=True)
-        else:
-          pass
+def __chat_settings__(chat_id, user_id):
+    return build_lock_message(chat_id)
 
 
 __help__ = """
-Do stickers annoy you? or want to avoid people sharing links? or pictures? You're in the right place!
+ - /locktypes: a list of possible locktypes
 
-The locks module allows you to lock away some common items in the telegram world; the bot will automatically delete them!
+*Admin only:*
+ - /lock <type>: lock items of a certain type (not available in private)
+ - /unlock <type>: unlock items of a certain type (not available in private)
+ - /locks: the current list of locks in this chat.
 
-Available commands are:
- - /lock <item(s)>: lock the usage of "item". Now, only admins will be able to use this type!
- - /unlock <item(s)>: unlock "item". Everyone can use them again.
- - /locks: list the lock status in the chat.
- - /locktypes: gets a list of all things that can be locked. (have a look at this!)
-
-eg: lock stickers with:
-/lock sticker
+Locks can be used to restrict a group's users.
+eg:
+Locking urls will auto-delete all messages with urls, locking stickers will delete all \
+stickers, etc.
+Locking bots will stop non-admins from adding bots to the chat.
 """
 
 __mod_name__ = "Locks"
